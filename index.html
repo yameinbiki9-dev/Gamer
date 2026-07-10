@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دستیار بازی رومیزی - کشورها</title>
+    <style>
+        /* ==================== ریست و استایل‌های پایه ==================== */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #f5f7fa;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --success: #10b981;
+            --success-hover: #059669;
+            --warning: #f59e0b;
+            --warning-hover: #d97706;
+            --danger: #ef4444;
+            --danger-hover: #dc2626;
+            --gold: #fbbf24;
+            --sapphire: #6366f1;
+            --ruby: #f43f5e;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --transition: 0.2s ease;
+            --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* ==================== تایپوگرافی ==================== */
+        h1 {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* ==================== کارت‌ها ==================== */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* ==================== دکمه‌ها ==================== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 999px;
+            font-family: var(--font);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+            background: #e2e8f0;
+            color: var(--text);
+            white-space: nowrap;
+            min-width: 44px;
+            min-height: 44px;
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+            opacity: 0.85;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: var(--success-hover);
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: #1e293b;
+        }
+
+        .btn-warning:hover {
+            background: var(--warning-hover);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: var(--danger-hover);
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            min-height: 36px;
+            border-radius: 20px;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #e2e8f0;
+        }
+
+        .btn-outline:hover {
+            background: #f1f5f9;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ==================== فرم‌ها ==================== */
+        input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 999px;
+            font-family: var(--font);
+            font-size: 0.95rem;
+            transition: border-color var(--transition);
+            background: #f8fafc;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* ==================== پیام‌ها (Toast) ==================== */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 90%;
+            max-width: 400px;
+            pointer-events: none;
+        }
+
+        .toast {
+            padding: 14px 20px;
+            border-radius: 999px;
+            color: white;
+            font-weight: 600;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            animation: slideDown 0.3s ease, fadeOut 0.3s ease 2.5s forwards;
+            pointer-events: auto;
+        }
+
+        .toast-error {
+            background: var(--danger);
+        }
+
+        .toast-success {
+            background: var(--success);
+        }
+
+        .toast-info {
+            background: var(--primary);
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+        }
+
+        /* ==================== گرید بازیکنان ==================== */
+        .players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .player-card {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .player-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 12px;
+        }
+
+        .player-header .country {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .player-header .capital {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .resources {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .resource-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #f8fafc;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid #e2e8f0;
+        }
+
+        .resource-badge.gold {
+            color: #b45309;
+            background: #fffbeb;
+            border-color: #fde68a;
+        }
+
+        .resource-badge.sapphire {
+            color: #4338ca;
+            background: #eef2ff;
+            border-color: #c7d2fe;
+        }
+
+        .resource-badge.ruby {
+            color: #be123c;
+            background: #fff1f2;
+            border-color: #fecdd3;
+        }
+
+        .total-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            background: #eff6ff;
+            padding: 8px 14px;
+            border-radius: 999px;
+            text-align: center;
+            border: 1px solid #bfdbfe;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            font-size: 0.85rem;
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: var(--radius-sm);
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+        }
+
+        .stat-value {
+            font-weight: 700;
+        }
+
+        .purchase-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 12px;
+        }
+
+        .purchase-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .purchase-label {
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            min-width: 70px;
+        }
+
+        /* ==================== پنل مدیر ==================== */
+        .admin-panel {
+            background: #fff7ed;
+            border: 2px solid #fdba74;
+            border-radius: var(--radius);
+            padding: 20px;
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .admin-panel.open {
+            display: flex;
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 10px;
+        }
+
+        .admin-control {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .admin-control label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #9a3412;
+        }
+
+        .admin-control .row {
+            display: flex;
+            gap: 4px;
+        }
+
+        /* ==================== صفحه شروع ==================== */
+        .start-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            text-align: center;
+            gap: 24px;
+        }
+
+        .logo {
+            font-size: 5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .game-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ==================== ریسپانسیو ==================== */
+        @media (max-width: 500px) {
+            .players-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .purchase-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn-sm {
+                justify-content: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="app">
+        <!-- ==================== صفحه شروع ==================== -->
+        <div id="startScreen" class="start-screen card">
+            <div class="logo">🌍</div>
+            <div class="game-title">کشورها</div>
+            <p style="font-size:1.1rem;color:#64748b;">دستیار بازی رومیزی</p>
+            <button class="btn btn-primary" onclick="startGame()" style="font-size:1.2rem;padding:14px 40px;">🎮 شروع بازی</button>
+        </div>
+
+        <!-- ==================== صفحه بازی ==================== -->
+        <div id="gameScreen" style="display:none;flex-direction:column;gap:20px;">
+            <!-- بخش ثبت بازیکن جدید -->
+            <div class="card" id="registerSection">
+                <h2 style="margin-bottom:12px;">➕ ثبت بازیکن جدید</h2>
+                <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;">
+                    <div class="input-group" style="flex:1;min-width:140px;">
+                        <label>نام بازیکن</label>
+                        <input type="text" id="playerName" placeholder="مثال: علی">
+                    </div>
+                    <div class="input-group" style="flex:1;min-width:140px;">
+                        <label>نام کشور</label>
+                        <input type="text" id="playerCountry" placeholder="مثال: ایران">
+                    </div>
+                    <div class="input-group" style="flex:1;min-width:140px;">
+                        <label>نام پایتخت</label>
+                        <input type="text" id="playerCapital" placeholder="مثال: تهران">
+                    </div>
+                    <button class="btn btn-success" onclick="addPlayer()" style="height:44px;">✅ ثبت بازیکن</button>
+                </div>
+                <p id="registerError" style="color:var(--danger);font-weight:600;margin-top:8px;display:none;"></p>
+            </div>
+
+            <!-- گرید کارت بازیکنان -->
+            <div class="players-grid" id="playersContainer"></div>
+
+            <!-- دکمه‌های مدیریتی -->
+            <div class="card" style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">
+                <button class="btn btn-outline" onclick="saveGame()">💾 ذخیره بازی</button>
+                <button class="btn btn-outline" onclick="loadGame()">📂 بارگذاری بازی</button>
+                <button class="btn btn-warning" onclick="toggleAdminPanel()">🛡️ پنل مدیر</button>
+                <button class="btn btn-danger" onclick="resetGame()">⚠️ ریست بازی</button>
+            </div>
+
+            <!-- پنل مدیر -->
+            <div class="admin-panel" id="adminPanel">
+                <h2>🛡️ پنل مدیر بازی</h2>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+                    <label style="font-weight:700;">بازیکن هدف:</label>
+                    <select id="adminPlayerSelect" class="btn btn-outline" style="border-radius:20px;padding:8px 16px;">
+                        <option value="">-- انتخاب بازیکن --</option>
+                    </select>
+                </div>
+                <div class="admin-grid" id="adminControls">
+                    <!-- توسط JS پر می‌شود -->
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;">
+                    <button class="btn btn-warning" id="timerToggleBtn" onclick="toggleTimer()">⏸️ توقف تایمرها</button>
+                    <button class="btn btn-danger" onclick="resetGame()">⚠️ ریست کامل بازی</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // ==================== حالت بازی (Game State) ====================
+        const DEFAULT_STATE = {
+            players: [], // آرایه بازیکنان
+            timerRunning: true,
+            timerCycle: 0, // شمارنده چرخه‌های 15 ثانیه‌ای
+            gameStarted: false
+        };
+
+        let gameState = JSON.parse(JSON.stringify(DEFAULT_STATE)); // کپی عمیق
+
+        // ==================== المان‌های DOM ====================
+        const startScreen = document.getElementById('startScreen');
+        const gameScreen = document.getElementById('gameScreen');
+        const playersContainer = document.getElementById('playersContainer');
+        const adminPanel = document.getElementById('adminPanel');
+        const adminPlayerSelect = document.getElementById('adminPlayerSelect');
+        const adminControls = document.getElementById('adminControls');
+        const timerToggleBtn = document.getElementById('timerToggleBtn');
+        const toastContainer = document.getElementById('toastContainer');
+        const registerError = document.getElementById('registerError');
+
+        let mainTimerInterval = null;
+
+        // ==================== توابع کمکی ====================
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            toastContainer.appendChild(toast);
+            setTimeout(() => {
+                if (toast.parentNode) toast.remove();
+            }, 2800);
+        }
+
+        function hideRegisterError() {
+            registerError.style.display = 'none';
+            registerError.textContent = '';
+        }
+
+        function showRegisterError(msg) {
+            registerError.textContent = msg;
+            registerError.style.display = 'block';
+        }
+
+        // محاسبه ارزش کل دارایی یک بازیکن
+        function calculateTotalValue(player) {
+            return (player.resources.gold * 1000) +
+                (player.resources.sapphire * 2000) +
+                (player.resources.ruby * 4000);
+        }
+
+        // محاسبه تعداد کل ساختمان‌های یک بازیکن (اشغال‌کننده ظرفیت)
+        function getTotalBuildings(player) {
+            return player.buildings.bank +
+                player.buildings.clinic +
+                player.buildings.ambassador +
+                player.buildings.controlCenter +
+                player.buildings.missileLauncher;
+        }
+
+        // محاسبه ظرفیت کل
+        function getTotalCapacity(player) {
+            return player.lands * 3;
+        }
+
+        // محاسبه ظرفیت باقی‌مانده
+        function getRemainingCapacity(player) {
+            return getTotalCapacity(player) - getTotalBuildings(player);
+        }
+
+        // بررسی اینکه آیا بازیکن می‌تواند ساختمان جدید بسازد
+        function canBuild(player) {
+            return getRemainingCapacity(player) > 0;
+        }
+
+        // ==================== ذخیره و بارگذاری ====================
+        function saveGame() {
+            try {
+                const stateToSave = JSON.parse(JSON.stringify(gameState));
+                localStorage.setItem('countriesGameState', JSON.stringify(stateToSave));
+                showToast('✅ بازی با موفقیت ذخیره شد.', 'success');
+            } catch (e) {
+                showToast('❌ خطا در ذخیره‌سازی بازی.', 'error');
+            }
+        }
+
+        function loadGame() {
+            try {
+                const saved = localStorage.getItem('countriesGameState');
+                if (!saved) {
+                    showToast('📭 هیچ بازی ذخیره‌شده‌ای یافت نشد.', 'info');
+                    return;
+                }
+                const parsed = JSON.parse(saved);
+                if (!parsed.players || !Array.isArray(parsed.players)) throw new Error('داده خراب');
+                gameState = parsed;
+                // اطمینان از وجود فیلدهای ضروری
+                gameState.players.forEach(p => {
+                    p.resources = p.resources || { gold: 0, sapphire: 0, ruby: 0 };
+                    p.buildings = p.buildings || { bank: 0, clinic: 0, ambassador: 0, controlCenter: 0, missileLauncher: 0 };
+                    p.forces = p.forces || { inspector: 0, assassin: 0 };
+                    p.mines = p.mines || { goldMine: 0, sapphireMine: 0, rubyMine: 0 };
+                    p.lands = p.lands || 0;
+                });
+                gameState.timerRunning = gameState.timerRunning !== undefined ? gameState.timerRunning : true;
+                gameState.timerCycle = gameState.timerCycle || 0;
+                gameState.gameStarted = true;
+                updateUI();
+                restartTimer();
+                showToast('📂 بازی با موفقیت بارگذاری شد.', 'success');
+            } catch (e) {
+                showToast('❌ خطا در بارگذاری بازی. فایل ذخیره خراب است.', 'error');
+            }
+        }
+
+        function resetGame() {
+            if (confirm('⚠️ آیا مطمئن هستید که می‌خواهید کل بازی را ریست کنید؟ این کار تمام داده‌ها را حذف می‌کند.')) {
+                if (confirm('❗ این عملیات غیرقابل بازگشت است. ادامه می‌دهید؟')) {
+                    gameState = JSON.parse(JSON.stringify(DEFAULT_STATE));
+                    gameState.gameStarted = false;
+                    stopTimer();
+                    localStorage.removeItem('countriesGameState');
+                    updateUI();
+                    startScreen.style.display = 'flex';
+                    gameScreen.style.display = 'none';
+                    adminPanel.classList.remove('open');
+                    showToast('🔄 بازی ریست شد.', 'info');
+                }
+            }
+        }
+
+        // ==================== تایمرها ====================
+        function applyCycleIncome() {
+            if (!gameState.timerRunning) return;
+            gameState.timerCycle++;
+            const cycle = gameState.timerCycle;
+
+            gameState.players.forEach(player => {
+                // معدن طلا: هر 15 ثانیه (هر سیکل)
+                if (player.mines.goldMine > 0) {
+                    player.resources.gold += player.mines.goldMine;
+                }
+            });
+
+            // هر 30 ثانیه (سیکل‌های زوج)
+            if (cycle % 2 === 0) {
+                gameState.players.forEach(player => {
+                    // درآمد پایه: +1 طلا
+                    player.resources.gold += 1;
+                    // معدن یاقوت کبود
+                    if (player.mines.sapphireMine > 0) {
+                        player.resources.sapphire += player.mines.sapphireMine;
+                    }
+                });
+            }
+
+            // هر 60 ثانیه (سیکل‌های مضرب 4)
+            if (cycle % 4 === 0) {
+                gameState.players.forEach(player => {
+                    if (player.mines.rubyMine > 0) {
+                        player.resources.ruby += player.mines.rubyMine;
+                    }
+                });
+            }
+
+            updateUI();
+            saveGame(); // ذخیره خودکار بعد از درآمد
+        }
+
+        function startTimer() {
+            stopTimer();
+            if (gameState.timerRunning) {
+                mainTimerInterval = setInterval(applyCycleIncome, 15000);
+            }
+            updateTimerButtonText();
+        }
+
+        function stopTimer() {
+            if (mainTimerInterval) {
+                clearInterval(mainTimerInterval);
+                mainTimerInterval = null;
+            }
+        }
+
+        function restartTimer() {
+            stopTimer();
+            if (gameState.timerRunning) {
+                startTimer();
+            }
+        }
+
+        function toggleTimer() {
+            gameState.timerRunning = !gameState.timerRunning;
+            if (gameState.timerRunning) {
+                startTimer();
+                showToast('▶️ تایمرها فعال شدند.', 'success');
+            } else {
+                stopTimer();
+                showToast('⏸️ تایمرها متوقف شدند.', 'info');
+            }
+            updateTimerButtonText();
+            saveGame();
+        }
+
+        function updateTimerButtonText() {
+            if (gameState.timerRunning) {
+                timerToggleBtn.textContent = '⏸️ توقف تایمرها';
+                timerToggleBtn.classList.add('btn-warning');
+                timerToggleBtn.classList.remove('btn-success');
+            } else {
+                timerToggleBtn.textContent = '▶️ ادامه تایمرها';
+                timerToggleBtn.classList.add('btn-success');
+                timerToggleBtn.classList.remove('btn-warning');
+            }
+        }
+
+        // ==================== عملیات بازیکنان ====================
+        function addPlayer() {
+            hideRegisterError();
+            const nameInput = document.getElementById('playerName');
+            const countryInput = document.getElementById('playerCountry');
+            const capitalInput = document.getElementById('playerCapital');
+
+            const name = nameInput.value.trim();
+            const country = countryInput.value.trim();
+            const capital = capitalInput.value.trim();
+
+            if (!name || !country || !capital) {
+                showRegisterError('❗ لطفاً تمام فیلدها را پر کنید.');
+                return;
+            }
+
+            if (gameState.players.length >= 4) {
+                showRegisterError('⚠️ حداکثر ۴ بازیکن مجاز است.');
+                return;
+            }
+
+            // بررسی نام تکراری
+            if (gameState.players.some(p => p.name === name)) {
+                showRegisterError('⚠️ این نام بازیکن قبلاً ثبت شده است.');
+                return;
+            }
+
+            const newPlayer = {
+                name: name,
+                country: country,
+                capital: capital,
+                resources: { gold: 0, sapphire: 0, ruby: 0 },
+                lands: 0,
+                buildings: { bank: 0, clinic: 0, ambassador: 0, controlCenter: 0, missileLauncher: 0 },
+                forces: { inspector: 0, assassin: 0 },
+                mines: { goldMine: 0, sapphireMine: 0, rubyMine: 0 }
+            };
+
+            gameState.players.push(newPlayer);
+            nameInput.value = '';
+            countryInput.value = '';
+            capitalInput.value = '';
+            updateUI();
+            saveGame();
+            showToast(`✅ بازیکن "${name}" از کشور "${country}" اضافه شد.`, 'success');
+        }
+
+        // تابع عمومی خرید
+        function buyItem(playerIndex, itemType, itemSubtype = null) {
+            if (playerIndex < 0 || playerIndex >= gameState.players.length) return;
+            const player = gameState.players[playerIndex];
+            let price = 0;
+            let isBuilding = false;
+            let landsToAdd = 0;
+            let itemName = '';
+
+            // تعیین قیمت و نوع آیتم
+            switch (itemType) {
+                case 'land':
+                    price = 5000;
+                    landsToAdd = 1;
+                    itemName = 'زمین';
+                    break;
+                case 'landPack':
+                    price = 25000;
+                    landsToAdd = 4;
+                    itemName = 'بسته ۴ زمین';
+                    break;
+                case 'mine':
+                    price = 2000;
+                    if (itemSubtype === 'goldMine') itemName = 'معدن طلا';
+                    else if (itemSubtype === 'sapphireMine') itemName = 'معدن یاقوت کبود';
+                    else if (itemSubtype === 'rubyMine') itemName = 'معدن یاقوت سرخ';
+                    break;
+                case 'building':
+                    isBuilding = true;
+                    if (itemSubtype === 'bank') { price = 2000;
+                        itemName = 'بانک'; } else if (itemSubtype === 'clinic') { price = 2000;
+                        itemName = 'درمانگاه'; } else if (itemSubtype === 'ambassador') { price = 20000;
+                        itemName = 'سفیر'; } else if (itemSubtype === 'controlCenter') { price = 30000;
+                        itemName = 'مرکز کنترل'; } else if (itemSubtype === 'missileLauncher') { price = 50000;
+                        itemName = 'لانچر موشک'; }
+                    break;
+                case 'force':
+                    if (itemSubtype === 'inspector') { price = 50000;
+                        itemName = 'بازرس'; } else if (itemSubtype === 'assassin') { price = 30000;
+                        itemName = 'آدم‌کش'; }
+                    break;
+                default:
+                    return;
+            }
+
+            // بررسی موجودی طلا
+            if (player.resources.gold < price) {
+                showToast(`❌ موجودی کافی نیست. (نیاز: ${price.toLocaleString()} طلا)`, 'error');
+                return;
+            }
+
+            // بررسی ظرفیت برای ساختمان‌ها
+            if (isBuilding && !canBuild(player)) {
+                showToast('🏗️ ظرفیت ساخت تکمیل شده است. ابتدا زمین جدید خریداری کنید.', 'error');
+                return;
+            }
+
+            // اعمال خرید
+            player.resources.gold -= price;
+
+            if (itemType === 'land' || itemType === 'landPack') {
+                player.lands += landsToAdd;
+            } else if (itemType === 'mine') {
+                player.mines[itemSubtype]++;
+            } else if (itemType === 'building') {
+                player.buildings[itemSubtype]++;
+            } else if (itemType === 'force') {
+                player.forces[itemSubtype]++;
+            }
+
+            updateUI();
+            saveGame();
+            showToast(`✅ ${itemName} با موفقیت خریداری شد.`, 'success');
+        }
+
+        // ==================== رندر رابط کاربری ====================
+        function updateUI() {
+            renderPlayerCards();
+            updateAdminPanel();
+            if (gameState.gameStarted) {
+                startScreen.style.display = 'none';
+                gameScreen.style.display = 'flex';
+            }
+        }
+
+        function renderPlayerCards() {
+            if (!playersContainer) return;
+            if (gameState.players.length === 0) {
+                playersContainer.innerHTML = '<div class="card" style="text-align:center;padding:30px;color:#64748b;">👥 هیچ بازیکنی ثبت نشده است. از فرم بالا بازیکن اضافه کنید.</div>';
+                return;
+            }
+
+            playersContainer.innerHTML = gameState.players.map((player, index) => {
+                const totalValue = calculateTotalValue(player);
+                const totalBld = getTotalBuildings(player);
+                const capacity = getTotalCapacity(player);
+                const remaining = getRemainingCapacity(player);
+
+                return `
+                <div class="card player-card" data-player-index="${index}">
+                    <div class="player-header">
+                        <div>
+                            <div class="country">${escapeHtml(player.country)}</div>
+                            <div class="capital">🏛️ ${escapeHtml(player.capital)} | 👤 ${escapeHtml(player.name)}</div>
+                        </div>
+                        <div class="total-value">💰 ${totalValue.toLocaleString()}</div>
+                    </div>
+                    <div class="resources">
+                        <span class="resource-badge gold">🪙 ${player.resources.gold}</span>
+                        <span class="resource-badge sapphire">💎 ${player.resources.sapphire}</span>
+                        <span class="resource-badge ruby">❤️ ${player.resources.ruby}</span>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item"><span class="stat-label">🏞️ زمین:</span><span class="stat-value">${player.lands}</span></div>
+                        <div class="stat-item"><span class="stat-label">🏗️ ظرفیت کل:</span><span class="stat-value">${capacity}</span></div>
+                        <div class="stat-item"><span class="stat-label">🏢 ساختمان‌ها:</span><span class="stat-value">${totalBld}</span></div>
+                        <div class="stat-item"><span class="stat-label">📦 ظرفیت باقی‌مانده:</span><span class="stat-value" style="color:${remaining <= 0 ? 'var(--danger)' : 'var(--success)'}">${remaining}</span></div>
+                        <div class="stat-item"><span class="stat-label">⛏️ معدن طلا:</span><span class="stat-value">${player.mines.goldMine}</span></div>
+                        <div class="stat-item"><span class="stat-label">💎 معدن یاقوت:</span><span class="stat-value">${player.mines.sapphireMine}</span></div>
+                        <div class="stat-item"><span class="stat-label">❤️ معدن سرخ:</span><span class="stat-value">${player.mines.rubyMine}</span></div>
+                        <div class="stat-item"><span class="stat-label">🏦 بانک:</span><span class="stat-value">${player.buildings.bank}</span></div>
+                        <div class="stat-item"><span class="stat-label">🏥 درمانگاه:</span><span class="stat-value">${player.buildings.clinic}</span></div>
+                        <div class="stat-item"><span class="stat-label">🤝 سفیر:</span><span class="stat-value">${player.buildings.ambassador}</span></div>
+                        <div class="stat-item"><span class="stat-label">🎮 مرکز کنترل:</span><span class="stat-value">${player.buildings.controlCenter}</span></div>
+                        <div class="stat-item"><span class="stat-label">🚀 لانچر:</span><span class="stat-value">${player.buildings.missileLauncher}</span></div>
+                        <div class="stat-item"><span class="stat-label">🕵️ بازرس:</span><span class="stat-value">${player.forces.inspector}</span></div>
+                        <div class="stat-item"><span class="stat-label">🗡️ آدم‌کش:</span><span class="stat-value">${player.forces.assassin}</span></div>
+                    </div>
+                    <div class="purchase-section">
+                        <div class="purchase-row">
+                            <span class="purchase-label">🏞️ زمین:</span>
+                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="land" data-index="${index}">۱ زمین (۵,۰۰۰)</button>
+                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="landPack" data-index="${index}">۴ زمین (۲۵,۰۰۰)</button>
+                        </div>
+                        <div class="purchase-row">
+                            <span class="purchase-label">⛏️ معدن:</span>
+                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="mine" data-subtype="goldMine" data-index="${index}">طلا (۲,۰۰۰)</button>
+                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="mine" data-subtype="sapphireMine" data-index="${index}">یاقوت کبود (۲,۰۰۰)</button>
+                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="mine" data-subtype="rubyMine" data-index="${index}">یاقوت سرخ (۲,۰۰۰)</button>
+                        </div>
+                        <div class="purchase-row">
+                            <span class="purchase-label">🏢 ساختمان:</span>
+                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="building" data-subtype="bank" data-index="${index}">🏦 (۲,۰۰۰)</button>
+                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="building" data-subtype="clinic" data-index="${index}">🏥 (۲,۰۰۰)</button>
+                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="building" data-subtype="ambassador" data-index="${index}">🤝 (۲۰,۰۰۰)</button>
+                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="building" data-subtype="controlCenter" data-index="${index}">🎮 (۳۰,۰۰۰)</button>
+                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="building" data-subtype="missileLauncher" data-index="${index}">🚀 (۵۰,۰۰۰)</button>
+                        </div>
+                        <div class="purchase-row">
+                            <span class="purchase-label">⚔️ نیرو:</span>
+                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="force" data-subtype="inspector" data-index="${index}">🕵️ بازرس (۵۰,۰۰۰)</button>
+                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="force" data-subtype="assassin" data-index="${index}">🗡️ آدم‌کش (۳۰,۰۰۰)</button>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ==================== پنل مدیر ====================
+        function updateAdminPanel() {
+            // به‌روزرسانی dropdown بازیکنان
+            adminPlayerSelect.innerHTML = '<option value="">-- انتخاب بازیکن --</option>' +
+                gameState.players.map((p, i) => `<option value="${i}">${escapeHtml(p.name)} (${escapeHtml(p.country)})</option>`).join('');
+
+            // رندر کنترل‌های مدیر برای بازیکن انتخاب‌شده
+            const selectedIndex = adminPlayerSelect.value;
+            if (selectedIndex === '' || !gameState.players[selectedIndex]) {
+                adminControls.innerHTML = '<p style="color:#9a3412;">لطفاً یک بازیکن را انتخاب کنید.</p>';
+                return;
+            }
+            const player = gameState.players[selectedIndex];
+            adminControls.innerHTML = `
+                <div class="admin-control"><label>🪙 طلا</label><div class="row"><button class="btn btn-sm btn-success" onclick="adminModify(${selectedIndex},'gold',1)">+۱</button><button class="btn btn-sm btn-warning" onclick="adminModify(${selectedIndex},'gold',10)">+۱۰</button><button class="btn btn-sm btn-danger" onclick="adminModify(${selectedIndex},'gold',-1)">-۱</button></div></div>
+                <div class="admin-control"><label>💎 یاقوت کبود</label><div class="row"><button class="btn btn-sm btn-success" onclick="adminModify(${selectedIndex},'sapphire',1)">+۱</button><button class="btn btn-sm btn-warning" onclick="adminModify(${selectedIndex},'sapphire',5)">+۵</button><button class="btn btn-sm btn-danger" onclick="adminModify(${selectedIndex},'sapphire',-1)">-۱</button></div></div>
+                <div class="admin-control"><label>❤️ یاقوت سرخ</label><div class="row"><button class="btn btn-sm btn-success" onclick="adminModify(${selectedIndex},'ruby',1)">+۱</button><button class="btn btn-sm btn-warning" onclick="adminModify(${selectedIndex},'ruby',5)">+۵</button><button class="btn btn-sm btn-danger" onclick="adminModify(${selectedIndex},'ruby',-1)">-۱</button></div></div>
+                <div class="admin-control"><label>🏞️ زمین</label><div class="row"><button class="btn btn-sm btn-success" onclick="adminModify(${selectedIndex},'lands',1)">+۱</button><button class="btn btn-sm btn-warning" onclick="adminModify(${selectedIndex},'lands',4)">+۴</button><button class="btn btn-sm btn-danger" onclick="adminModify(${selectedIndex},'lands',-1)">-۱</button></div></div>
+                <div class="admin-control"><label>⛏️ معدن طلا</label><div class="row"><button class="btn btn-sm btn-success" onclick="adminModify(${selectedIndex},'goldMine',1)">+۱</button><button class="btn btn-sm btn-danger" onclick="adminModify(${selectedIndex},'goldMine',-1)">-۱</button></div></div>
+                <div class="admin-control"><label>💎 معدن یاقوت</label><div class="row"><button class="btn btn-sm btn-success" onclick="adminModify(${selectedIndex},'sapphireMine',1)">+۱</button><button class="btn btn-sm btn-danger" onclick="adminModify(${selectedIndex},'sapphireMine',-1)">-۱</button></div></div>
+                <div class="admin-control"><label>❤️ معدن سرخ</label><div class="row"><button class="btn btn-sm btn-success" onclick="adminModify(${selectedIndex},'rubyMine',1)">+۱</button><button class="btn btn-sm btn-danger" onclick="adminModify(${selectedIndex},'rubyMine',-1)">-۱</button></div></div>
+                <div class="admin-control"><label>🏦 بانک</label><div class="row"><button class="btn btn-sm btn-success" onclick="adminModify(${selectedIndex},'bank',1)">+۱</button><button class="btn btn-sm btn-danger" onclick="adminModify(${selectedIndex},'bank',-1)">-۱</button></div></div>
+                <div class="admin-control"><label>🏥 درمانگاه</label><div class="row"><button class="btn btn-sm btn-success" onclick="adminModify(${selectedIndex},'clinic',1)">+۱</button><button class="btn btn-sm btn-danger" onclick="adminModify(${selectedIndex},'clinic',-1)">-۱</button></div></div>
+                <div class="admin-control"><label>🤝 سفیر</label><div class="row"><button class="btn btn-sm btn-success" onclick="adminModify(${selectedIndex},'ambassador',1)">+۱</button><button class="btn btn-sm btn-danger" onclick="adminModify(${selectedIndex},'ambassador',-1)">-۱</button></div></div>
+                <div class="admin-control"><label>🎮 مرکز کنترل</label><div class="row"><button class="btn btn-sm btn-success" onclick="adminModify(${selectedIndex},'controlCenter',1)">+۱</button><button class="btn btn-sm btn-danger" onclick="adminModify(${selectedIndex},'controlCenter',-1)">-۱</button></div></div>
+                <div class="admin-control"><label>🚀 لانچر</label><div class="row"><button class="btn btn-sm btn-success" onclick="adminModify(${selectedIndex},'missileLauncher',1)">+۱</button><button class="btn btn-sm btn-danger" onclick="adminModify(${selectedIndex},'missileLauncher',-1)">-۱</button></div></div>
+                <div class="admin-control"><label>🕵️ بازرس</label><div class="row"><button class="btn btn-sm btn-success" onclick="adminModify(${selectedIndex},'inspector',1)">+۱</button><button class="btn btn-sm btn-danger" onclick="adminModify(${selectedIndex},'inspector',-1)">-۱</button></div></div>
+                <div class="admin-control"><label>🗡️ آدم‌کش</label><div class="row"><button class="btn btn-sm btn-success" onclick="adminModify(${selectedIndex},'assassin',1)">+۱</button><button class="btn btn-sm btn-danger" onclick="adminModify(${selectedIndex},'assassin',-1)">-۱</button></div></div>
+            `;
+        }
+
+        function adminModify(playerIndex, field, amount) {
+            if (playerIndex < 0 || playerIndex >= gameState.players.length) return;
+            const player = gameState.players[playerIndex];
+
+            // تشخیص مسیر فیلد
+            if (field === 'gold' || field === 'sapphire' || field === 'ruby') {
+                const newVal = player.resources[field] + amount;
+                if (newVal < 0) {
+                    showToast('⚠️ مقدار نمی‌تواند منفی شود.', 'error');
+                    return;
+                }
+                player.resources[field] = newVal;
+            } else if (field === 'lands') {
+                const newVal = player.lands + amount;
+                if (newVal < 0) {
+                    showToast('⚠️ تعداد زمین نمی‌تواند منفی شود.', 'error');
+                    return;
+                }
+                player.lands = newVal;
+            } else if (field === 'goldMine' || field === 'sapphireMine' || field === 'rubyMine') {
+                const newVal = player.mines[field] + amount;
+                if (newVal < 0) {
+                    showToast('⚠️ تعداد معدن نمی‌تواند منفی شود.', 'error');
+                    return;
+                }
+                player.mines[field] = newVal;
+            } else if (['bank', 'clinic', 'ambassador', 'controlCenter', 'missileLauncher'].includes(field)) {
+                const newVal = player.buildings[field] + amount;
+                if (newVal < 0) {
+                    showToast('⚠️ تعداد ساختمان نمی‌تواند منفی شود.', 'error');
+                    return;
+                }
+                player.buildings[field] = newVal;
+            } else if (field === 'inspector' || field === 'assassin') {
+                const newVal = player.forces[field] + amount;
+                if (newVal < 0) {
+                    showToast('⚠️ تعداد نیرو نمی‌تواند منفی شود.', 'error');
+                    return;
+                }
+                player.forces[field] = newVal;
+            }
+            updateUI();
+            saveGame();
+            showToast('✅ تغییرات اعمال شد.', 'success');
+        }
+
+        function toggleAdminPanel() {
+            adminPanel.classList.toggle('open');
+            if (adminPanel.classList.contains('open')) {
+                updateAdminPanel();
+            }
+        }
+
+        // Event delegation برای دکمه‌های خرید در کارت بازیکنان
+        playersContainer.addEventListener('click', (e) => {
+            const btn = e.target.closest('button');
+            if (!btn) return;
+            const action = btn.dataset.action;
+            if (action !== 'buy') return;
+            const playerIndex = parseInt(btn.dataset.index, 10);
+            const type = btn.dataset.type;
+            const subtype = btn.dataset.subtype || null;
+            buyItem(playerIndex, type, subtype);
+        });
+
+        // به‌روزرسانی پنل مدیر هنگام تغییر بازیکن
+        adminPlayerSelect.addEventListener('change', updateAdminPanel);
+
+        // ==================== شروع بازی ====================
+        function startGame() {
+            gameState.gameStarted = true;
+            // تلاش برای بارگذاری خودکار بازی قبلی
+            const saved = localStorage.getItem('countriesGameState');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    if (parsed.players && parsed.players.length > 0) {
+                        if (confirm('📂 یک بازی ذخیره‌شده پیدا شد. آیا می‌خواهید آن را بارگذاری کنید؟')) {
+                            loadGame();
+                            return;
+                        }
+                    }
+                } catch (e) {}
+            }
+            // شروع بازی جدید
+            gameState = JSON.parse(JSON.stringify(DEFAULT_STATE));
+            gameState.gameStarted = true;
+            gameState.timerRunning = true;
+            gameState.timerCycle = 0;
+            updateUI();
+            startTimer();
+            saveGame();
+            showToast('🎮 بازی جدید آغاز شد!', 'success');
+        }
+
+        // ==================== راه‌اندازی اولیه ====================
+        function init() {
+            // تلاش برای بارگذاری خودکار در صورت وجود
+            const saved = localStorage.getItem('countriesGameState');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    if (parsed.gameStarted && parsed.players && parsed.players.length > 0) {
+                        gameState = parsed;
+                        gameState.players.forEach(p => {
+                            p.resources = p.resources || { gold: 0, sapphire: 0, ruby: 0 };
+                            p.buildings = p.buildings || { bank: 0, clinic: 0, ambassador: 0, controlCenter: 0, missileLauncher: 0 };
+                            p.forces = p.forces || { inspector: 0, assassin: 0 };
+                            p.mines = p.mines || { goldMine: 0, sapphireMine: 0, rubyMine: 0 };
+                            p.lands = p.lands || 0;
+                        });
+                        gameState.timerRunning = gameState.timerRunning !== undefined ? gameState.timerRunning : true;
+                        gameState.timerCycle = gameState.timerCycle || 0;
+                        gameState.gameStarted = true;
+                        updateUI();
+                        startTimer();
+                        startScreen.style.display = 'none';
+                        gameScreen.style.display = 'flex';
+                        return;
+                    }
+                } catch (e) {}
+            }
+            // صفحه شروع
+            startScreen.style.display = 'flex';
+            gameScreen.style.display = 'none';
+        }
+
+        init();
+    </script>
+</body>
+</html>
