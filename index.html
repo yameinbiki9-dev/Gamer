@@ -425,42 +425,6 @@
             gap: 4px;
         }
 
-        /* ==================== صفحه شروع ==================== */
-        .start-screen {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 80vh;
-            text-align: center;
-            gap: 24px;
-        }
-
-        .logo {
-            font-size: 5rem;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-15px);
-            }
-        }
-
-        .game-title {
-            font-size: 2.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
         /* ==================== ریسپانسیو ==================== */
         @media (max-width: 500px) {
             .players-grid {
@@ -817,54 +781,59 @@
             showToast(`✅ بازیکن "${name}" از کشور "${country}" اضافه شد.`, 'success');
         }
 
-        // تابع عمومی خرید
+        // تابع عمومی خرید (قیمت‌ها به تعداد سکه طلا)
         function buyItem(playerIndex, itemType, itemSubtype = null) {
             if (playerIndex < 0 || playerIndex >= gameState.players.length) return;
             const player = gameState.players[playerIndex];
-            let price = 0;
+            let price = 0; // تعداد سکه طلا
             let isBuilding = false;
             let landsToAdd = 0;
             let itemName = '';
 
-            // تعیین قیمت و نوع آیتم
+            // تعیین قیمت (بر اساس تعداد سکه طلا) و نوع آیتم
             switch (itemType) {
                 case 'land':
-                    price = 5000;
+                    price = 5; // ۵۰۰۰ ارزش = ۵ سکه
                     landsToAdd = 1;
                     itemName = 'زمین';
                     break;
                 case 'landPack':
-                    price = 25000;
+                    price = 25; // ۲۵۰۰۰ ارزش = ۲۵ سکه
                     landsToAdd = 4;
                     itemName = 'بسته ۴ زمین';
                     break;
                 case 'mine':
-                    price = 2000;
+                    price = 2; // ۲۰۰۰ ارزش = ۲ سکه
                     if (itemSubtype === 'goldMine') itemName = 'معدن طلا';
                     else if (itemSubtype === 'sapphireMine') itemName = 'معدن یاقوت کبود';
                     else if (itemSubtype === 'rubyMine') itemName = 'معدن یاقوت سرخ';
                     break;
                 case 'building':
                     isBuilding = true;
-                    if (itemSubtype === 'bank') { price = 2000;
-                        itemName = 'بانک'; } else if (itemSubtype === 'clinic') { price = 2000;
-                        itemName = 'درمانگاه'; } else if (itemSubtype === 'ambassador') { price = 20000;
-                        itemName = 'سفیر'; } else if (itemSubtype === 'controlCenter') { price = 30000;
-                        itemName = 'مرکز کنترل'; } else if (itemSubtype === 'missileLauncher') { price = 50000;
-                        itemName = 'لانچر موشک'; }
+                    if (itemSubtype === 'bank') { price = 2;
+                        itemName = 'بانک'; } // ۲۰۰۰ ارزش = ۲ سکه
+                    else if (itemSubtype === 'clinic') { price = 2;
+                        itemName = 'درمانگاه'; }
+                    else if (itemSubtype === 'ambassador') { price = 20;
+                        itemName = 'سفیر'; } // ۲۰۰۰۰ = ۲۰ سکه
+                    else if (itemSubtype === 'controlCenter') { price = 30;
+                        itemName = 'مرکز کنترل'; } // ۳۰۰۰۰ = ۳۰ سکه
+                    else if (itemSubtype === 'missileLauncher') { price = 50;
+                        itemName = 'لانچر موشک'; } // ۵۰۰۰۰ = ۵۰ سکه
                     break;
                 case 'force':
-                    if (itemSubtype === 'inspector') { price = 50000;
-                        itemName = 'بازرس'; } else if (itemSubtype === 'assassin') { price = 30000;
-                        itemName = 'آدم‌کش'; }
+                    if (itemSubtype === 'inspector') { price = 50;
+                        itemName = 'بازرس'; } // ۵۰۰۰۰ = ۵۰ سکه
+                    else if (itemSubtype === 'assassin') { price = 30;
+                        itemName = 'آدم‌کش'; } // ۳۰۰۰۰ = ۳۰ سکه
                     break;
                 default:
                     return;
             }
 
-            // بررسی موجودی طلا
+            // بررسی موجودی طلا (تعداد سکه)
             if (player.resources.gold < price) {
-                showToast(`❌ موجودی کافی نیست. (نیاز: ${price.toLocaleString()} طلا)`, 'error');
+                showToast(`❌ موجودی کافی نیست. (نیاز: ${price} سکه طلا)`, 'error');
                 return;
             }
 
@@ -948,27 +917,27 @@
                     <div class="purchase-section">
                         <div class="purchase-row">
                             <span class="purchase-label">🏞️ زمین:</span>
-                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="land" data-index="${index}">۱ زمین (۵,۰۰۰)</button>
-                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="landPack" data-index="${index}">۴ زمین (۲۵,۰۰۰)</button>
+                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="land" data-index="${index}">۱ زمین (۵ سکه)</button>
+                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="landPack" data-index="${index}">۴ زمین (۲۵ سکه)</button>
                         </div>
                         <div class="purchase-row">
                             <span class="purchase-label">⛏️ معدن:</span>
-                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="mine" data-subtype="goldMine" data-index="${index}">طلا (۲,۰۰۰)</button>
-                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="mine" data-subtype="sapphireMine" data-index="${index}">یاقوت کبود (۲,۰۰۰)</button>
-                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="mine" data-subtype="rubyMine" data-index="${index}">یاقوت سرخ (۲,۰۰۰)</button>
+                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="mine" data-subtype="goldMine" data-index="${index}">طلا (۲ سکه)</button>
+                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="mine" data-subtype="sapphireMine" data-index="${index}">یاقوت کبود (۲ سکه)</button>
+                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="mine" data-subtype="rubyMine" data-index="${index}">یاقوت سرخ (۲ سکه)</button>
                         </div>
                         <div class="purchase-row">
                             <span class="purchase-label">🏢 ساختمان:</span>
-                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="building" data-subtype="bank" data-index="${index}">🏦 (۲,۰۰۰)</button>
-                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="building" data-subtype="clinic" data-index="${index}">🏥 (۲,۰۰۰)</button>
-                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="building" data-subtype="ambassador" data-index="${index}">🤝 (۲۰,۰۰۰)</button>
-                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="building" data-subtype="controlCenter" data-index="${index}">🎮 (۳۰,۰۰۰)</button>
-                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="building" data-subtype="missileLauncher" data-index="${index}">🚀 (۵۰,۰۰۰)</button>
+                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="building" data-subtype="bank" data-index="${index}">🏦 (۲ سکه)</button>
+                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="building" data-subtype="clinic" data-index="${index}">🏥 (۲ سکه)</button>
+                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="building" data-subtype="ambassador" data-index="${index}">🤝 (۲۰ سکه)</button>
+                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="building" data-subtype="controlCenter" data-index="${index}">🎮 (۳۰ سکه)</button>
+                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="building" data-subtype="missileLauncher" data-index="${index}">🚀 (۵۰ سکه)</button>
                         </div>
                         <div class="purchase-row">
                             <span class="purchase-label">⚔️ نیرو:</span>
-                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="force" data-subtype="inspector" data-index="${index}">🕵️ بازرس (۵۰,۰۰۰)</button>
-                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="force" data-subtype="assassin" data-index="${index}">🗡️ آدم‌کش (۳۰,۰۰۰)</button>
+                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="force" data-subtype="inspector" data-index="${index}">🕵️ بازرس (۵۰ سکه)</button>
+                            <button class="btn btn-sm btn-outline" data-action="buy" data-type="force" data-subtype="assassin" data-index="${index}">🗡️ آدم‌کش (۳۰ سکه)</button>
                         </div>
                     </div>
                 </div>
@@ -996,7 +965,7 @@
             }
             const player = gameState.players[selectedIndex];
             adminControls.innerHTML = `
-                <div class="admin-control"><label>🪙 طلا</label><div class="row"><button class="btn btn-sm btn-success" onclick="adminModify(${selectedIndex},'gold',1)">+۱</button><button class="btn btn-sm btn-warning" onclick="adminModify(${selectedIndex},'gold',10)">+۱۰</button><button class="btn btn-sm btn-danger" onclick="adminModify(${selectedIndex},'gold',-1)">-۱</button></div></div>
+                <div class="admin-control"><label>🪙 طلا</label><div class="row"><button class="btn btn-sm btn-success" onclick="adminModify(${selectedIndex},'gold',1)">+۱</button><button class="btn btn-sm btn-warning" onclick="adminModify(${selectedIndex},'gold',5)">+۵</button><button class="btn btn-sm btn-danger" onclick="adminModify(${selectedIndex},'gold',-1)">-۱</button></div></div>
                 <div class="admin-control"><label>💎 یاقوت کبود</label><div class="row"><button class="btn btn-sm btn-success" onclick="adminModify(${selectedIndex},'sapphire',1)">+۱</button><button class="btn btn-sm btn-warning" onclick="adminModify(${selectedIndex},'sapphire',5)">+۵</button><button class="btn btn-sm btn-danger" onclick="adminModify(${selectedIndex},'sapphire',-1)">-۱</button></div></div>
                 <div class="admin-control"><label>❤️ یاقوت سرخ</label><div class="row"><button class="btn btn-sm btn-success" onclick="adminModify(${selectedIndex},'ruby',1)">+۱</button><button class="btn btn-sm btn-warning" onclick="adminModify(${selectedIndex},'ruby',5)">+۵</button><button class="btn btn-sm btn-danger" onclick="adminModify(${selectedIndex},'ruby',-1)">-۱</button></div></div>
                 <div class="admin-control"><label>🏞️ زمین</label><div class="row"><button class="btn btn-sm btn-success" onclick="adminModify(${selectedIndex},'lands',1)">+۱</button><button class="btn btn-sm btn-warning" onclick="adminModify(${selectedIndex},'lands',4)">+۴</button><button class="btn btn-sm btn-danger" onclick="adminModify(${selectedIndex},'lands',-1)">-۱</button></div></div>
